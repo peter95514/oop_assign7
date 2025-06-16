@@ -53,4 +53,4 @@ To run the program, in `build/`:
 ```
 
 ## UML Class Diagram
-![UML Diagram](docs/diagram.png)
+![UML Diagram](./diagram.png)
