@@ -14,6 +14,20 @@ Challenge: Avoid enemy detection and recon scans.
 Victory Condition: Enter the blue zone without being spotted.
 Failure Condition: Being seen by any enemy or caught in a recon scan.
 
+### Controls
+
+Use the W, A, S, and D keys to move your character:
+
+W – Move up
+
+A – Move left
+
+S – Move down
+
+D – Move right
+
+Plan your moves carefully—every step could bring you closer to safety… or right into danger.
+
 ## Compile and Run
 Before compiling the program, in **Project Folder**:
 ```console
