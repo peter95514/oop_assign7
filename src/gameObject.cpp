@@ -4,7 +4,7 @@
 #include <pstl/pstl_config.h>
 #include <string>
 
-GameObject::GameObject () : _pos(Vec2(0, 0)){
+GameObject::GameObject () : _pos(Vec2(0, 0)), _hp(99){
 }
 
 Position GameObject::getPosition() const {
@@ -23,8 +23,8 @@ GameObject::~GameObject(){
 
 }
 
-void GameObject::update(std::vector<std::vector<bool>>& visible) { 
-    
+bool GameObject::update(std::vector<std::vector<bool>>& visible) { 
+    return false;
 }
 
 void GameObject::move(int input) { 

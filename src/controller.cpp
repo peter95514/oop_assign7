@@ -65,17 +65,17 @@ bool isWithin45Degrees(int fx, int fy, int dx, int dy) {
     double dot = fx * dx + fy * dy;
     double cosTheta = dot / (len1 * len2);
 
-    return cosTheta >= std::cos(M_PI / 4);
+    return cosTheta > std::cos(M_PI / 4);
 }
 
 Controller::Controller(View& view): _view(view){
     for(int i = 0; i < GAME_WINDOW_HEIGHT; i ++) {
         for (int k = 0; k < GAME_WINDOW_WIDTH; k ++) {
             if(initmap[i][k] == '#') {
-                update(new Block(k, i,Vec2(0, 0), 1, 1, Color::PINK, "█", "Block"));
+                update(new Block(k, i, 999, Vec2(0, 0), 1, 1, Color::PINK, "█", "Block"));
             }
             if(initmap[i][k] == 'O') {
-                update(new Block(k, i,Vec2(0, 0), 1, 1, Color::BLUE, "█", "Win"));
+                update(new Block(k, i, 99, Vec2(0, 0), 1, 1, Color::BLUE, "█", "Win"));
             }
             if(initmap[i][k] == 'X') {
                 update(new Enemy(k, i, 1, 1, 1, 0, Color::RED, "█", "Enemy"));
@@ -126,11 +126,23 @@ void Controller::run() {
             std::cout << "you win!!" << std::endl;
             break;
         }
-        
-        for(GameObject* obj : _objs) 
+        for(auto obj = _objs.begin(); obj != _objs.end(); ) 
         {
-            obj->update(latest_vis_con);
-            _view.updateGameObject(obj);
+            if((*obj)->update(latest_vis_con)) {
+                if((*obj)->gettype() == "Bullet") {
+                    obj = _objs.erase(obj);
+                    continue;
+                }
+            }
+            if (Enemy* en = dynamic_cast<Enemy*>(*obj)) {
+                if(en->shoot()){
+                    auto[x, y] = en->getPosition();
+                    auto[e1, e2] = en->getface();
+                    update(new Block(x, y, 50, Vec2(e1,e2), 1, 1, Color::YELLOW, "█", "Bullet"));
+                }
+            }
+            _view.updateGameObject(*obj);
+            ++obj;
         }
         _view.changevis(latest_vis_con);
 
@@ -164,6 +176,19 @@ bool Controller::check() {
     for(int i = 0; i < _objs.size(); i ++) {
         if(_player == _objs[i]) continue;
         if(_player->getPosition() == _objs[i]->getPosition() && _objs[i]->gettype() == "Win") return true;
+    }
+    for(int i = 0; i < _objs.size(); i ++) {
+        if(_objs[i]->gettype() == "Bullet") {
+            for (int j = 0;j < _objs.size(); j ++) {
+                if(_objs[j]->gettype() != "Block") continue;
+                auto [x, y] = _objs[i]->getPosition();
+                auto [e1, e2] = _objs[i]->getspeed();
+                Vec2 temp(x + e1, y + e2);
+                if(temp == _objs[j]->getPosition()) {
+                    _objs[i]->changespeed(1, 0, 0);
+                }
+            }
+        }
     }
     return false;
 }

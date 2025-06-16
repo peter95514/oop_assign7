@@ -19,17 +19,11 @@ public:
     }
     std::string gettype() const;
     void changetype(std::string type);
-    virtual void update(std::vector<std::vector<bool>>& visible);
+    virtual bool update(std::vector<std::vector<bool>>& visible);
     virtual void move(int input);
     virtual ~GameObject();
     virtual void changespeed(bool inverse = true, int x = 999, int y = 999);
     virtual Vec2 getspeed();
-    bool mvornot() const {
-        return _mv;
-    }
-    void resetmv() {
-        _mv = 0;
-    }
 
 protected:
 
@@ -37,6 +31,7 @@ protected:
     Icon _icon;
     std::string _type;
     bool _mv;
+    int _hp;
 
 };
 
