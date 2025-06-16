@@ -112,7 +112,7 @@ void Block::change_sight(std::vector<std::vector<bool>>& visible) {
     }
 }
 
-Enemy::Enemy (int x, int y, int width, int height, int face_x, int face_y, Color color, std::string ascii, std::string type, Sight* sight) : _face(Vec2(face_x, face_y)), _sight(sight){
+Enemy::Enemy (int x, int y, int width, int height, int face_x, int face_y, Color color, std::string ascii, std::string type) : _face(Vec2(face_x, face_y)) {
     _pos = Vec2(x, y);
     _icon = IconFactory::Block_icon(width, height, color, ascii);
     _type = type;

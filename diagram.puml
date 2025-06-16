@@ -1,0 +1,164 @@
+@startuml
+
+
+
+
+
+/' Objects '/
+
+class Block {
+	+Block(int x, int y, int hp, Vec2 speed, int width, int height, Color color, std::string ascii, std::string type)
+	-_speed : Vec2
+	+getspeed() : Vec2
+	+checkdie() : bool
+	+update(std::vector<std::vector<bool>>& visible) : bool
+	+change_sight(std::vector<std::vector<bool>>& visible) : void
+	+changespeed(bool inverse, int x, int y) : void
+	+move(int input) : void
+}
+
+
+class Controller {
+	+Controller(View &)
+	-_player : GameObject*
+	-_view : View&
+	+check() : bool
+	+checklose() : bool
+	-_objs : std::vector<GameObject*>
+	-latest_vis_con : std::vector<std::vector<bool>>
+	-handleInput(int) : void
+	+next() : void
+	+reset() : void
+	+run() : void
+	+update(GameObject* input) : void
+}
+
+
+class Enemy {
+	+Enemy(int x, int y, int width, int height, int face_x, int face_y, Color color, std::string ascii, std::string type, Sight* sight)
+	-_sight : Sight*
+	-_face : Vec2
+	+getface() : Vec2
+	+shoot() : bool
+	+update(std::vector<std::vector<bool>>& visible) : bool
+	-_radius : int
+	-_shoot_time : int
+	-_time_face : int
+	+change_sight(std::vector<std::vector<bool>>& visible) : void
+	+move() : void
+	+normalmove() : void
+}
+
+
+class GameObject {
+	+GameObject()
+	+~GameObject()
+	#_icon : Icon
+	+getIcon() : Icon {query}
+	#_pos : Position
+	+getPosition() : Position {query}
+	+getspeed() : Vec2
+	#_mv : bool
+	+update(std::vector<std::vector<bool>>& visible) : bool
+	#_hp : int
+	#_type : std::string
+	+gettype() : std::string {query}
+	+changeIconColor(Color Color) : void
+	+changespeed(bool inverse, int x, int y) : void
+	+changetype(std::string type) : void
+	+move(int input) : void
+}
+
+
+class Player {
+	+Player(int x, int y, int width, int height, Color color, std::string ascii, std::string type)
+	+update(std::vector<std::vector<bool>>& visible) : bool
+	+move(int input) : void
+}
+
+
+class View {
+	+View()
+	+getvis(int x, int y) : bool
+	-_termHeight : int
+	-_termWidth : int
+	-{static} get_terminal_size() : std::pair<int , int>
+	-last_bg_color : std::vector<std::vector<Color>>
+	-last_fg_color : std::vector<std::vector<Color>>
+	-latest_bg_color : std::vector<std::vector<Color>>
+	-latest_fg_color : std::vector<std::vector<Color>>
+	-latest_vis : std::vector<std::vector<bool>>
+	-last_map : std::vector<std::vector<std::string>>
+	-latest_map : std::vector<std::vector<std::string>>
+	+changevis(std::vector<std::vector<bool>> input) : void
+	+render() : void
+	+resetLatest() : void
+	+updateGameObject(GameObject*) : void
+}
+
+
+class Cell {
+	+Cell(Color c, std::string a)
+	+color : Color
+	+ascii : std::string
+}
+
+
+class Vec2 {
+	+Vec2(int first, int second)
+	+operator+(Vec2 speed) : Vec2
+	+operator==(Vec2 check) : bool
+	+e1 : int
+	+e2 : int
+	+height() : int&
+	+width() : int&
+	+x() : int&
+	+y() : int&
+}
+
+
+
+
+
+/'Realization relationships '/
+
+GameObject <|.. Block
+
+
+GameObject <|.. Enemy
+
+
+GameObject <|.. Player
+
+
+
+
+
+/' Aggregation relationships '/
+
+
+Controller  *-- GameObject
+
+
+Controller *-- View
+
+
+Enemy *-- Vec2
+
+
+Block *-- Vec2
+
+View *-- Cell
+
+
+/' Dependency relationships '/
+
+
+
+
+
+/' Nested objects '/
+
+
+
+@enduml

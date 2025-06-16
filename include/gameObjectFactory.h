@@ -33,14 +33,10 @@ class Block : public GameObject {
     private:
         Vec2 _speed;
 };
-class Sight : public GameObject {
-    public:
-};
-
 class Enemy : public GameObject {
 
     public:
-        Enemy (int x, int y, int width = 1, int height = 1,int face_x = 1, int face_y = 1, Color color = Color::RED, std::string ascii = "█", std::string type = "Enemy", Sight* sight = nullptr);
+        Enemy (int x, int y, int width = 1, int height = 1,int face_x = 1, int face_y = 1, Color color = Color::RED, std::string ascii = "█", std::string type = "Enemy");
         bool update(std::vector<std::vector<bool>>& visible) override;
         void normalmove();
         void move();
@@ -51,7 +47,6 @@ class Enemy : public GameObject {
         }
     private:
         Vec2 _face;
-        Sight* _sight;
         int _radius;
         int _time_face;
         int _shoot_time;
