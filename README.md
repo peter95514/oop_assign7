@@ -54,3 +54,6 @@ To run the program, in `build/`:
 
 ## UML Class Diagram
 ![UML Diagram](./diagram.png)
+
+## Flowchart 
+![Flowchart](./flowchart.png)

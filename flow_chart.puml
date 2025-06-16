@@ -1,0 +1,33 @@
+@startuml
+start
+
+:Create Controller object;
+:Call Controller::run();
+
+repeat
+    :Read input;
+    if (Input is ESC?) then (yes)
+        stop
+    endif
+
+    :Handle input (handleInput);
+    :Reset state (reset);
+    :Update view state;
+
+    if (Player wins?) then (yes)
+        :Print "you win!!";
+        stop
+    endif
+
+    :Update game objects (_objs);
+    :Render view (_view.render);
+
+    if (Player loses?) then (yes)
+        :Print "you lose!!";
+        stop
+    endif
+
+repeat while (true)
+
+@enduml
+
