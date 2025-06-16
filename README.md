@@ -53,5 +53,4 @@ To run the program, in `build/`:
 ```
 
 ## UML Class Diagram
-<img width="815" alt="image" src="https://github.com/user-attachments/assets/8faa7f01-0e0c-478d-94cf-80ee6888c480" />
->>>>>>> origin/master
+![UML Diagram](docs/diagram.png)
