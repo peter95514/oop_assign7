@@ -56,4 +56,4 @@ To run the program, in `build/`:
 ![UML Diagram](./diagram.png)
 
 ## Flowchart 
-![Flowchart](./flowchart.png)
+![Flowchart](./flow_chart.png)
